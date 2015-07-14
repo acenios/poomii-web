@@ -6,12 +6,14 @@
     Class as a controller for user data
 */
 class User extends MX_Controller {
-
     // Variable
     var $username = 'username';
     var $password = 'password';
     var $firstname = 'firstname';
     var $lastname = 'lastname';
+
+    var $attribute = 'attribute';
+    var $key = 'key';
  
     // Constructor
     public function __construct()
@@ -27,11 +29,6 @@ class User extends MX_Controller {
     	//Just an example to ensure that we get into the function
         echo "<h1>Welcome to the world of Codeigniter</h1>";
         die();
-    }
-
-    // Login 
-    public function login($username, $password){
-    	echo "<h3>This is login function</h3>";
     }
 
     // Logout
@@ -89,6 +86,24 @@ class User extends MX_Controller {
         $query = $this->model->add($data);
 
         $this->getAllUser();
+    }
+
+    // Login user
+    public function loginUser($attribute, $key, $password){
+        $data = array(
+            $this->attribute => $attribute,
+            $this->key => $key,
+            $this->password => $password);
+
+        $query = $this->model->login($data);
+
+        $this->getAllUser();
+
+        if($query == true){
+            echo "<h5>Login success!</h5>";
+        }else{
+            echo "<h5>Login failed!</h5>";
+        }
     }
 
 }
