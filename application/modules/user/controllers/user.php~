@@ -38,30 +38,20 @@ class User extends MX_Controller {
 
     // Get all user data
     public function getAllUser(){
-        $query = $this->model->getAll();
+       $query = $this->model->getAll();
 
-        $rows = array();
-
-        foreach ($query->result() as $row) {
-            $rows[] = $row;
-        }
-
-        // Encode to JSON
-        print json_encode($rows);
+       foreach ($query->result() as $row) {
+            echo $row->username.' | '.$row->password.' | '.$row->firstname.' | '.$row->lastname.'</br>';
+       }
     }
 
     // Get user data with username
     public function getUser($key){
-        $query = $this->model->getWithKey($this->username, $key);
+       $query = $this->model->getWithKey($this->username, $key);
 
-        $rows = array();
-
-        foreach ($query->result() as $row) {
-            $rows[] = $row;
-        }
-
-        // Encode to JSON
-        print json_encode($rows);
+       foreach ($query->result() as $row) {
+            echo $row->username.' | '.$row->password.' | '.$row->firstname.' | '.$row->lastname;
+       }
     }
 
     // Update user data
@@ -107,13 +97,13 @@ class User extends MX_Controller {
 
         $query = $this->model->login($data);
 
-        $rows = array();
+        $this->getAllUser();
 
-        foreach ($query->result() as $row) {
-            $rows[] = $row;
+        if($query == true){
+            echo "<h5>Login success!</h5>";
+        }else{
+            echo "<h5>Login failed!</h5>";
         }
-
-        print json_encode($rows);
     }
 
 }
